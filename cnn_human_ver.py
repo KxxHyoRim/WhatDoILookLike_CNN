@@ -21,30 +21,48 @@ animal = ["cat","dog","rabbit"]
 
 idx = 0
 for p in animal:
+
     print("> " + animal[idx] + " on Process")
     count = 0
     folder = file_location + 'train/' + animal[idx]
+
     for i in os.listdir(folder):
         if os.path.isfile(folder + "/" + i):
-            img = cv2.imread(folder + "/" + i)
+
+            try :    # 파일이름이 한글이면 error -> 영어로 rename
+                new_name = folder + "/" + 'trainImage' + str(count) + '.jfif'
+                os.rename(folder + "/" + i, new_name)
+            except:
+                pass
+
+            img = cv2.imread(new_name)
             img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             img = cv2.resize(img, (50, 50))
             img = numpy.asarray(img) / 255
             x_train.append(img)
             y_train.append(idx)
             count = count + 1
-        if count == 88:  # 200
+        if count == 87:  # 200
             break
     idx += 1
 
 idx = 0
 for p in animal:
+
     print("> " + animal[idx]  + " on Process")
     count = 0
     folder = file_location + 'val/' + animal[idx]
+
     for i in os.listdir(folder):
         if os.path.isfile(folder + "/" + i):
-            img = cv2.imread(folder + "/" + i)
+
+            try:    # 파일이름이 한글이면 error -> 영어로 rename
+                new_name = folder + "/" + 'testImage' + str(count) +  + '.jfif'
+                os.rename(folder + "/" + i, new_name)
+            except:
+                pass
+
+            img = cv2.imread(new_name)
             img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             img = cv2.resize(img, (50, 50))
             img = numpy.asarray(img) / 255
@@ -86,11 +104,11 @@ model.add(Dropout(0.5))
 model.add(Dense(3, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-MODEL_DIR = './model/'
+MODEL_DIR = '../model/'
 if not os.path.exists(MODEL_DIR):
     os.mkdir(MODEL_DIR)
 
-modelpath = "./model/{epoch:02d}-{val_loss:.4f}.h5"
+modelpath = "../model/{epoch:02d}-{val_loss:.4f}.h5"
 checkpointer = ModelCheckpoint(filepath=modelpath, monitor='val_loss', verbose=1, save_best_only=True)
 early_stopping_callback = EarlyStopping(monitor='val_loss', patience=10)
 
@@ -99,7 +117,7 @@ model.fit(x_train, y_train, validation_data=(x_test, y_test), epochs=40, batch_s
 #test
 
 test = [] # test input
-cat2 = cv2.imread("C:/Users/Kim Hyo Rim/Desktop/sohee.jpg")
+cat2 = cv2.imread("C:/Users/Kim Hyo Rim/Desktop/sohee.jfif")
 cat2 = cv2.cvtColor(cat2, cv2.COLOR_BGR2GRAY)
 cat2 = cv2.resize(cat2, (50, 50))
 cat2 = numpy.asarray(cat2) / 255
