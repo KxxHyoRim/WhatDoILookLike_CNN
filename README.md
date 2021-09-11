@@ -1,7 +1,7 @@
 # WhatDoILookLike_CNN
 
 #### Android 어플리케이션 '나의 얼굴은'의 동물상 판별 딥러닝 모델입니다. </br>
-#### 여러 딥러닝 모델로 각각 여러번의 시도 결과 가장 성능이 좋게 나온 CNN모델을 업로드 합니다.
+#### 여러 딥러닝 모델로 각각 여러번의 시도 결과 가장 성능이 좋게 나온 CNN모델의 정확도는 72%입니다.
 
 <img src = "https://user-images.githubusercontent.com/59546818/132958071-c046cd15-8dd3-492e-abdb-846f3f6edd2d.png" width="80%" height="80%">
 <img src = "https://user-images.githubusercontent.com/59546818/132957909-d2693043-e9aa-47de-bb7c-105fba082458.png" width="80%" height="80%">
